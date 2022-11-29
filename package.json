@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@middy/core": "^3.4.0",
-    "@middy/http-json-body-parser": "^3.4.0"
+    "@middy/http-json-body-parser": "^3.4.0",
+    "@prisma/client": "^4.6.1",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
@@ -19,6 +21,7 @@
     "@types/node": "^14.14.25",
     "esbuild": "^0.14.11",
     "json-schema-to-ts": "^1.5.0",
+    "prisma": "^4.6.1",
     "serverless": "^3.0.0",
     "serverless-esbuild": "^1.23.3",
     "ts-node": "^10.4.0",
