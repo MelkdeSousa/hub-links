@@ -1,8 +1,9 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
+import { createLink } from '@functions/links';
 
 const serverlessConfiguration: AWS = {
+  useDotenv: true,
   service: 'hub-links',
   frameworkVersion: '3',
   plugins: ['serverless-esbuild'],
@@ -16,10 +17,11 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      DATABASE_URL: '${ssm:/DATABASE_URL_HUB_LINKS~true}'
     },
   },
   // import the function via paths
-  functions: { hello },
+  functions: { createLink },
   package: { individually: true },
   custom: {
     esbuild: {
