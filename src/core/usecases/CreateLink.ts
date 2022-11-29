@@ -10,6 +10,8 @@ export class CreateLinkUseCase {
         if (error) throw error
 
         this._linkWriteRepository.save(link)
+        
+        console.table(link);
     }
 }
 

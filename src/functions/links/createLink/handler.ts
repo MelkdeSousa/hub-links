@@ -11,12 +11,13 @@ const linkRepository = new PrismaLinkRepository(connection)
 const createLinkUseCase = new CreateLinkUseCase(linkRepository)
 
 const createLink: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-const { title, url } = event.body
+  const {body} = event
 
-
-  createLinkUseCase.execute({
-    title, url
-  })
+  console.log(body);
+  
+  await createLinkUseCase.execute(
+   body
+  )
 
   return formatJSONResponse(201);
 };
