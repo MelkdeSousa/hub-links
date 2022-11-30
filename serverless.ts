@@ -24,12 +24,7 @@ const serverlessConfiguration: AWS = {
   functions: { createLink },
   package: {
     individually: true,
-    patterns: [
-      '!node_modules/.prisma/client/libquery_engine-*',
-      'node_modules/.prisma/client/libquery_engine-rhel-*',
-      '!node_modules/prisma/libquery_engine-*',
-      '!node_modules/@prisma/engines/**',
-    ],
+    patterns: ['node_modules/.prisma/**', 'node_modules/@prisma/**'],
   },
   custom: {
     esbuild: {
