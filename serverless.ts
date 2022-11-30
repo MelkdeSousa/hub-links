@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import { createLink } from '@functions/links';
+import { createLink, listLinks } from '@functions/links';
 
 const serverlessConfiguration: AWS = {
   useDotenv: true,
@@ -25,7 +25,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { createLink },
+  functions: { createLink, listLinks },
   package: {
     individually: true,
     patterns: ['node_modules/.prisma/**', 'node_modules/@prisma/**'],
