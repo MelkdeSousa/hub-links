@@ -6,8 +6,13 @@ const serverlessConfiguration: AWS = {
   useDotenv: true,
   service: 'hub-links',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-offline',
+    'serverless-dotenv-plugin',
+  ],
   provider: {
+    stage: "${opt:stage, 'dev'}",
     name: 'aws',
     runtime: 'nodejs14.x',
     apiGateway: {
@@ -17,13 +22,13 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
-      DATABASE_URL: '${env:DATABASE_URL}',
     },
   },
   // import the function via paths
   functions: { createLink },
   package: {
     individually: true,
+    patterns: ['node_modules/.prisma/**', 'node_modules/@prisma/**'],
   },
   custom: {
     esbuild: {
@@ -35,6 +40,7 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+      packager: 'yarn',
     },
   },
 };
