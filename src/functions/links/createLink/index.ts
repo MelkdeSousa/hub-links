@@ -1,13 +1,14 @@
-import schema from './schema';
 import { handlerPath } from '@libs/handler-resolver';
+import { Lambda } from 'src/types/lambda';
+import schema from './schema';
 
-export default {
+const lambda: Lambda = {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
     {
       http: {
         method: 'post',
-        path: 'hello',
+        path: 'links',
         request: {
           schemas: {
             'application/json': schema,
@@ -17,3 +18,5 @@ export default {
     },
   ],
 };
+
+export default lambda;

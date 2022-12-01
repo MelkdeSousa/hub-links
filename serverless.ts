@@ -1,12 +1,18 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
+import { createLink, listLinks } from '@functions/links';
 
 const serverlessConfiguration: AWS = {
+  useDotenv: true,
   service: 'hub-links',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-offline',
+    'serverless-dotenv-plugin',
+  ],
   provider: {
+    stage: "${opt:stage, 'dev'}",
     name: 'aws',
     runtime: 'nodejs14.x',
     apiGateway: {
@@ -19,8 +25,11 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello },
-  package: { individually: true },
+  functions: { createLink, listLinks },
+  package: {
+    individually: true,
+    patterns: ['node_modules/.prisma/**', 'node_modules/@prisma/**'],
+  },
   custom: {
     esbuild: {
       bundle: true,
@@ -31,6 +40,7 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+      packager: 'yarn',
     },
   },
 };
