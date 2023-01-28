@@ -1,0 +1,1 @@
+export { IVideoReadRepository } from './VideoRepository'
