@@ -31,7 +31,7 @@ type Title = {
   "title":
   {
     "type": string
-    "text": {
+    "text"?: {
       "content": string
       "link": string | null
     },
@@ -43,7 +43,7 @@ type Title = {
       "code": boolean
       "color": string
     },
-    "plain_text": string
+    "plain_text"?: string
     "href": string | null
   }[]
 }
@@ -82,8 +82,10 @@ export class NotionVideoRepository implements IVideoReadRepository {
 
     return results.map((page: PageVideoNotion) => ({
       id: page.id,
-      url: page.properties.uri,
-      title: page.properties.title.title[0].text.content
+      url: page.properties.uri.url,
+      title: page.properties.title.title.at(0)?.text.content || '-',
+      tags: page.properties.tags.multi_select
+        .map(tag => tag.name.toLowerCase())
     }))
   }
 } 

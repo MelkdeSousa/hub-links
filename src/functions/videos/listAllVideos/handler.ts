@@ -9,9 +9,9 @@ const videoRepository = new NotionVideoRepository(connection);
 const listAllVideosUseCase = new ListAllVideos(videoRepository);
 
 const listAllVideos: ValidatedEventAPIGatewayProxyEvent<null> = async () => {
-  const links = await listAllVideosUseCase.execute();
+  const videos = await listAllVideosUseCase.execute();
 
-  return formatJSONResponse(200, { ...links });
+  return formatJSONResponse(200, { videos });
 };
 
 export const main = middyfy(listAllVideos);
