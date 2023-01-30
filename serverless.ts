@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import { createLink, listLinks } from '@functions/links';
+import { listAllVideos } from '@functions/videos'
 
 const serverlessConfiguration: AWS = {
   useDotenv: true,
@@ -24,8 +24,7 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
   },
-  // import the function via paths
-  functions: { createLink, listLinks },
+  functions: { listAllVideos },
   package: {
     individually: true,
     patterns: ['node_modules/.prisma/**', 'node_modules/@prisma/**'],
