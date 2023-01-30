@@ -83,7 +83,7 @@ export class NotionVideoRepository implements IVideoReadRepository {
     return results.map((page: PageVideoNotion) => ({
       id: page.id,
       url: page.properties.uri.url,
-      title: page.properties.title.title.at(0)?.text.content || '-',
+      title: page.properties.title.title[0]?.text.content || '-',
       tags: page.properties.tags.multi_select
         .map(tag => tag.name.toLowerCase())
     }))
