@@ -1,2 +1,2 @@
-export { default as listAllVideos } from './listAllVideos';
+export { listAllVideos } from './listAllVideos';
 
