@@ -80,6 +80,7 @@ export class NotionVideoRepository implements IVideoReadRepository {
       database_id: process.env.NOTION_VIDEOS_DB_ID,
     })
 
+    // @ts-ignore
     return results.map((page: PageVideoNotion) => ({
       id: page.id,
       url: page.properties.uri.url,

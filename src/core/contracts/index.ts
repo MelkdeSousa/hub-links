@@ -1,1 +1,1 @@
-export { IVideoReadRepository } from './VideoRepository'
+export { type IVideoReadRepository } from './VideoRepository'

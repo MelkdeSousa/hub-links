@@ -1,1 +1,1 @@
-export { Video } from './Video'
+export { type Video } from './Video'
