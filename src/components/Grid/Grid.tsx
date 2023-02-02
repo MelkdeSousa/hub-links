@@ -1,36 +1,39 @@
-import { Row, Col, Space } from 'antd'
+import splitArray from '@libs/splitArray';
+import { Row, Col, Space } from 'antd';
+import { ReactNode } from 'react';
 
 export type GridProps<T> = {
-  data: T[]
-  renderItem: (item: T) => JSX.Element
-  itemsByRow?: number
-  cellClassName?: string
-  rowClassName?: string
-}
+  data: T[];
+  renderItem: (item: T) => ReactNode;
+  keyExtractor: (item: T) => string;
+  itemsByRow?: number;
+  cellClassName?: string;
+  rowClassName?: string;
+};
 
-const splitArray = <T extends unknown>(data: T[], numberSplitter: number) => {
-  const dataSplitted = []
-
-  for (let index = 0; index < data.length; index += numberSplitter) {
-    dataSplitted.push(data.slice(index, index + numberSplitter))
-  }
-
-  return dataSplitted
-}
-
-const Grid = <T extends { id: string }>({ data, itemsByRow = 3, renderItem, cellClassName, rowClassName }: GridProps<T>) => {
-  const dataSplitted = splitArray(data, itemsByRow)
+const Grid = <T extends { id: string }>({
+  data,
+  itemsByRow = 3,
+  renderItem,
+  cellClassName,
+  rowClassName,
+  keyExtractor,
+}: GridProps<T>) => {
+  const splitData = splitArray(data, itemsByRow);
 
   return (
-    <Space direction='vertical'>
-      {dataSplitted.map(row =>
+    <Space direction="vertical">
+      {splitData.map((row) => (
         <Row key={crypto.randomUUID()} className={rowClassName}>
-          {row.map(item => <Col key={item.id} className={cellClassName}>{renderItem(item)}</Col>)}
+          {row.map((item) => (
+            <Col key={keyExtractor(item)} className={cellClassName}>
+              {renderItem(item)}
+            </Col>
+          ))}
         </Row>
-      )}
+      ))}
     </Space>
-  )
-}
+  );
+};
 
-export default Grid
-
+export default Grid;

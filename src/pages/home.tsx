@@ -1,17 +1,16 @@
-import { useEffect } from "react"
-import Player from 'react-player'
-import { useGetVideos } from '../hooks'
-import { Input, Layout } from "antd"
-import { Grid } from '../components'
+import { useEffect } from 'react';
+import { useGetVideos } from '../hooks';
+import { Input, Layout } from 'antd';
+import { CardVideo, Grid } from '../components';
 
 const HomePage = () => {
-  const { loading, getVideos, videos } = useGetVideos()
+  const { loading, getVideos, videos } = useGetVideos();
 
   const onSearch = (value: string) => console.log(value);
 
   useEffect(() => {
-    getVideos({})
-  }, [])
+    getVideos({});
+  }, []);
 
   return (
     <Layout className="w-screen h-screen">
@@ -26,19 +25,19 @@ const HomePage = () => {
       </Layout.Header>
 
       <Layout.Content className="flex flex-row p-4 overflow-scroll w-full h-full">
-        {
-          videos.length && <Grid
+        {videos.length && (
+          <Grid
             data={videos}
+            keyExtractor={(item) => item.id}
             itemsByRow={4}
-            rowClassName='p2'
-            cellClassName='p-4 flex flex-1'
-            renderItem={(item) => <Player width='w-32' height='h-16' url={item.url} />}
+            rowClassName="p2"
+            cellClassName="p-4 flex flex-1"
+            renderItem={CardVideo}
           />
-        }
+        )}
       </Layout.Content>
     </Layout>
-  )
-}
+  );
+};
 
-export default HomePage
-
+export default HomePage;
