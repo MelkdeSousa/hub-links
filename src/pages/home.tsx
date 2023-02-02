@@ -1,25 +1,42 @@
-import { useEffect, useState } from "react"
-import { Video } from '../core/entities'
-import Player from 'react-player/lazy'
+import { useEffect } from "react"
+import Player from 'react-player'
 import { useGetVideos } from '../hooks'
+import { Input, Layout } from "antd"
+import { Grid } from '../components'
 
 const HomePage = () => {
   const { loading, getVideos, videos } = useGetVideos()
+
+  const onSearch = (value: string) => console.log(value);
 
   useEffect(() => {
     getVideos({})
   }, [])
 
   return (
-    <main>
-      <h1>Videos</h1>
+    <Layout className="w-screen h-screen">
+      <Layout.Header className="w-full flex items-center justify-center">
+        <Input.Search
+          placeholder="input search text"
+          allowClear
+          enterButton="Search"
+          size="large"
+          onSearch={onSearch}
+        />
+      </Layout.Header>
 
-      {videos.length && videos.map(video =>
-        <li key={video.id}>
-          <Player url={video.url} fallback={() => <span>Carregando...</span>} />
-        </li>
-      )}
-    </main>
+      <Layout.Content className="flex flex-row p-4 overflow-scroll w-full h-full">
+        {
+          videos.length && <Grid
+            data={videos}
+            itemsByRow={4}
+            rowClassName='p2'
+            cellClassName='p-4 flex flex-1'
+            renderItem={(item) => <Player width='w-32' height='h-16' url={item.url} />}
+          />
+        }
+      </Layout.Content>
+    </Layout>
   )
 }
 

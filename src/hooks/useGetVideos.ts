@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { Video } from '../core/entities'
+
 export const useGetVideos = () => {
   const [videos, setVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(false)
