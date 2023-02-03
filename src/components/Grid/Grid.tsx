@@ -22,7 +22,7 @@ const Grid = <T extends { id: string }>({
   const splitData = splitArray(data, itemsByRow);
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" className='flex flex-1 w-full'>
       {splitData.map((row) => (
         <Row key={crypto.randomUUID()} className={rowClassName}>
           {row.map((item) => (
