@@ -3,12 +3,11 @@ import { useGetVideos } from '../hooks';
 import { Input, Layout } from 'antd';
 import { CardVideo, Grid } from '../components';
 
-import useSWR from 'swr'
-import {fetcher} from '../infra/http/fetcher'
-
+import useSWR from 'swr';
+import { fetcher } from '../infra/http/fetcher';
 
 const HomePage = () => {
-  const { loading, data } = useSWR('/api/videos', fetcher)
+  const { data } = useSWR('/api/videos', fetcher);
 
   const onSearch = (value: string) => console.log(value);
 
@@ -25,9 +24,9 @@ const HomePage = () => {
       </Layout.Header>
 
       <Layout.Content className="flex flex-row p-4 overflow-scroll w-full h-full">
-        {(!loading && !!data.videos.length) && (
+        {!!data?.videos?.length && (
           <Grid
-            data={videos}
+            data={data.videos || []}
             keyExtractor={(item) => item.id}
             itemsByRow={4}
             rowClassName="p2"
