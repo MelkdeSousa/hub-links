@@ -33,7 +33,7 @@ const Grid = <T extends { id: string }>({
         </Row>
       ))}
     </Space>
-  );
+ );
 };
 
 export default Grid;

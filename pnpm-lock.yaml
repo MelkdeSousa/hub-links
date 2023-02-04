@@ -10,10 +10,12 @@ specifiers:
   esbuild: ^0.14.11
   next: ^13.1.6
   postcss: ^8.4.21
+  prettier: ^2.8.3
   prisma: ^4.7.0
   react: ^18.2.0
   react-dom: ^18.2.0
   react-player: ^2.11.0
+  swr: ^2.0.3
   tailwindcss: ^3.2.4
   ts-node: ^10.4.0
   tsconfig-paths: ^3.9.0
@@ -28,6 +30,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-player: 2.11.0_react@18.2.0
+  swr: 2.0.3_react@18.2.0
   zod: 3.19.1
 
 devDependencies:
@@ -36,6 +39,7 @@ devDependencies:
   autoprefixer: 10.4.13_postcss@8.4.21
   esbuild: 0.14.54
   postcss: 8.4.21
+  prettier: 2.8.3
   prisma: 4.7.0
   tailwindcss: 3.2.4_aesdjsunmf4wiehhujt67my7tu
   ts-node: 10.9.1_kluoused5zacjtflizwvdqgpom
@@ -1283,6 +1287,12 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
+  /prettier/2.8.3:
+    resolution: {integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
   /prisma/4.7.0:
     resolution: {integrity: sha512-VsecNo0Ca3+bDTzSpJqIpdupKVhhQ8aOYeWc09JlUM89knqvhSrlMrg0U8BiOD4tFrY1OPaCcraK8leDBxKMBg==}
     engines: {node: '>=14.17'}
@@ -1986,6 +1996,16 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
+  /swr/2.0.3_react@18.2.0:
+    resolution: {integrity: sha512-sGvQDok/AHEWTPfhUWXEHBVEXmgGnuahyhmRQbjl9XBYxT/MSlAzvXEKQpyM++bMPaI52vcWS2HiKNaW7+9OFw==}
+    engines: {pnpm: '7'}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
   /tailwindcss/3.2.4_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}
     engines: {node: '>=12.13.0'}
@@ -2100,6 +2120,14 @@ packages:
       escalade: 3.1.1
       picocolors: 1.0.0
     dev: true
+
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}

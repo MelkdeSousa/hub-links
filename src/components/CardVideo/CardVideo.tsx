@@ -6,10 +6,17 @@ type CardVideoProps = Video;
 
 const CardVideo = (item: CardVideoProps) => (
   <Card
-    className="w-32"
-    cover={<Player key={item.id} width="w-32" height="h-16" url={item.url} />}
+    hoverable
+    className='w-full h-full'
+    cover={<Player  fallback={<span>Carregando...</span>} key={item.id} style={{ display: 'flex', flex: 1 }} width='auto' height='auto' url={item.url} />}
+    bodyStyle={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'space-between', height: 'fit-content' }}
   >
-    <Card.Meta title={item.title} description={item.tags.join(', ')} />
+  <a href={item.url} target='_blank'>
+    <h1 className='font-bold text-lg'>
+    {item.title}
+    </h1>
+  </a>
+    <p className='font-thin text-sm'>{item.tags.join(', ')}</p>
   </Card>
 );
 
