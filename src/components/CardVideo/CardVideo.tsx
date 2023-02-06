@@ -1,5 +1,6 @@
 import { Card } from 'antd';
-import Player from 'react-player';
+
+import Player from 'react-player/lazy';
 import { Video } from '../../core/entities';
 
 type CardVideoProps = Video;
@@ -10,12 +11,12 @@ const CardVideo = (item: CardVideoProps) => (
     className="w-full h-full"
     cover={
       <Player
-        fallback={<span>Carregando...</span>}
         key={item.id}
         style={{ display: 'flex', flex: 1 }}
         width="auto"
         height="auto"
         url={item.url}
+        controls
       />
     }
     bodyStyle={{
