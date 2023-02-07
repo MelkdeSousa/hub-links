@@ -18,13 +18,6 @@ const HomePage = () => {
     4,
   );
 
-  const columnCount = useMedia<number>(
-    // Media queries
-    ['(min-width: 1000px)', '(min-width: 600px)', '(max-width: 600px)'],
-    [4, 2, 1],
-    4,
-  );
-
   const onSearch = (value: string) => console.log(value);
 
   const hasVideos = !!videos?.videos?.length;
