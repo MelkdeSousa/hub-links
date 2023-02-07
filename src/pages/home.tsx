@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useGetVideos } from '../hooks';
 import { Input, Layout } from 'antd';
 import { CardVideo, Grid } from '../components';
 
@@ -15,7 +13,7 @@ const HomePage = () => {
     <Layout className="w-screen h-screen">
       <Layout.Header className="w-full flex items-center justify-center">
         <Input.Search
-          placeholder="input search text"
+          placeholder="Pesquisar por..."
           allowClear
           enterButton="Search"
           size="large"

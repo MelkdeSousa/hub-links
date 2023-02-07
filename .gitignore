@@ -14,3 +14,6 @@ jspm_packages
 # Next
 .next/
 .vercel
+
+# VSCode
+.vscode/
