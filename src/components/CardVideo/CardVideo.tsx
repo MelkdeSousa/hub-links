@@ -1,4 +1,5 @@
-import { Card } from 'antd';
+import { randomColor } from '@libs/randomColor';
+import { Card, Tag } from 'antd';
 
 import Player from 'react-player/lazy';
 import { Video } from '../../core/entities';
@@ -30,7 +31,14 @@ const CardVideo = (item: CardVideoProps) => (
     <a href={item.url} target="_blank">
       <h1 className="font-bold text-lg">{item.title}</h1>
     </a>
-    <p className="font-light text-sm">{item.tags.join(', ')}</p>
+
+    <div className="flex flex-row flex-wrap">
+      {item.tags.map((tag) => (
+        <Tag key={tag} color={randomColor()} className="m-1 w-fit">
+          <p className="font-light text-sm">{tag}</p>
+        </Tag>
+      ))}
+    </div>
   </Card>
 );
 
