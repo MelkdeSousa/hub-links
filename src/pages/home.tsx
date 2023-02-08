@@ -1,15 +1,22 @@
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import { CardVideo, Grid } from '../components';
 import { useMedia } from '../hooks';
 
 import { Select } from 'antd';
+import { useState } from 'react';
 import useSWR from 'swr';
 import { Tag } from '../core/entities';
 import { fetcher } from '../infra/http/fetcher';
 
 const HomePage = () => {
+  const [tagsToSearch, setTagsToSearch] = useState<string[]>([]);
+
   const { data: videos } = useSWR('/api/videos', fetcher);
   const { data: tags } = useSWR('/api/tags', fetcher);
+  const { data: videosSearched, isLoading: isLoadingVideosSearch } = useSWR(
+    `/api/videos/tags?tags=${tagsToSearch.join(',')}`,
+    fetcher,
+  );
 
   const columnCount = useMedia<number>(
     // Media queries
@@ -18,10 +25,12 @@ const HomePage = () => {
     4,
   );
 
-  const onSearch = (value: string) => console.log(value);
-
   const hasVideos = !!videos?.videos?.length;
+  const hasVideosSearched = !!videosSearched?.videos?.length;
   const hasTags = !!tags?.tags?.length;
+  const hasVideoToGrid = hasVideosSearched || hasVideos;
+
+  const videosToGrid = videosSearched?.videos || videos?.videos || [];
 
   return (
     <Layout className="w-screen h-screen">
@@ -30,8 +39,11 @@ const HomePage = () => {
           <Select
             className="w-full"
             mode="multiple"
-            size="middle"
+            size="large"
             placeholder="Pesquisar por..."
+            onChange={setTagsToSearch}
+            notFoundContent={isLoadingVideosSearch ? <Spin /> : null}
+            loading={isLoadingVideosSearch}
             options={
               tags.tags.map((tag: Tag) => ({
                 label: tag.name,
@@ -43,15 +55,17 @@ const HomePage = () => {
       </Layout.Header>
 
       <Layout.Content className="flex flex-row p-4 overflow-scroll w-full h-full">
-        {hasVideos && (
+        {hasVideoToGrid ? (
           <Grid
-            data={videos.videos || []}
+            data={videosToGrid}
             keyExtractor={(item) => item.id}
             itemsByRow={columnCount}
             rowClassName="p2"
             cellClassName="p-4 flex flex-1 w-32"
             renderItem={CardVideo}
           />
+        ) : (
+          <Spin />
         )}
       </Layout.Content>
     </Layout>

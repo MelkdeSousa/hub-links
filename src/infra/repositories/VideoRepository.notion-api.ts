@@ -89,4 +89,28 @@ export class NotionVideoRepository implements IVideoReadRepository {
       ),
     }));
   }
+
+  async findByTags(tags: string[]): Promise<Video[]> {
+    const { results } = await this._notionClient.databases.query({
+      database_id: process.env.NOTION_VIDEOS_DB_ID,
+      filter: {
+        and: tags.map((tag) => ({
+          property: 'tags',
+          multi_select: {
+            contains: tag,
+          },
+        })),
+      },
+    });
+
+    // @ts-ignore
+    return results.map((page: PageVideoNotion) => ({
+      id: page.id,
+      url: page.properties.uri.url,
+      title: page.properties.title.title[0]?.text.content || '-',
+      tags: page.properties.tags.multi_select.map((tag) =>
+        tag.name.toLowerCase(),
+      ),
+    }));
+  }
 }
